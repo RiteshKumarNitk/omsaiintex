@@ -1,0 +1,1 @@
+﻿import re; content = open(r'c:\Users\RiteshKumar\Downloads\omsaiintex.com\omsaiintex.com\contact\index.html', encoding='utf-8', errors='ignore').read(); print(set(re.findall(r'data-target=\"([^\"]+)\"', content)))

@@ -1,0 +1,1 @@
+﻿content = open(r'c:\Users\RiteshKumar\Downloads\omsaiintex.com\omsaiintex.com\contact\index.html', encoding='utf-8', errors='ignore').read(); print('div:', content.count('<div')); print('/div:', content.count('</div'));
