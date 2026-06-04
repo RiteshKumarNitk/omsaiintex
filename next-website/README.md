@@ -10,7 +10,7 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
+# or 3561655060714306 03/32 776
 bun dev
 ```
 
