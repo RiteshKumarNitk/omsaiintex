@@ -4,7 +4,8 @@ import React, { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
-import { splitTextToWords, animateWordsIn } from '@/lib/gsap-utils';
+import PageHero from '@/components/shared/PageHero';
+import SplitTextSection from '@/components/shared/SplitTextSection';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,48 +14,29 @@ const teamStats = [
   { value: "2700+", label: "Skilled professionals" },
 ];
 
+const whoWeAreWords = "Who we are".split(' ');
+
 export default function AboutPage() {
   const mainRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const heroHeadingRef = useRef<HTMLHeadingElement>(null);
-  const heroSubRef = useRef<HTMLParagraphElement>(null);
   const designBuildRef = useRef<HTMLDivElement>(null);
   const generalContractingRef = useRef<HTMLDivElement>(null);
   const whoWeAreRef = useRef<HTMLDivElement>(null);
-  const whoWeAreHeadingRef = useRef<HTMLHeadingElement>(null);
+  const whoWeAreWordsRef = useRef<(HTMLSpanElement | null)[]>([]);
   const statsRef = useRef<HTMLDivElement>(null);
   const awardsRef = useRef<HTMLDivElement>(null);
   const historyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero curtain
-      gsap.to(overlayRef.current, {
-        height: '0%', duration: 1.5, ease: 'power4.inOut',
-      });
-
-      // Hero heading split
-      if (heroHeadingRef.current) {
-        const [words] = splitTextToWords(heroHeadingRef.current);
-        animateWordsIn(words, {
-          from: { y: 60, opacity: 0, rotateX: -30 },
-          to: { duration: 1.2, stagger: 0.03, ease: 'power4.out', delay: 0.6 },
-        });
-      }
-
-      // Hero subtitle
-      gsap.fromTo(heroSubRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 1.4 }
-      );
-
       // Design & Build section
       const dbChildren = designBuildRef.current?.children;
       if (dbChildren && dbChildren.length > 0) {
         gsap.fromTo(dbChildren,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-            scrollTrigger: { trigger: designBuildRef.current, start: 'top 85%' } }
+          {
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: designBuildRef.current, start: 'top 85%' }
+          }
         );
       }
 
@@ -63,19 +45,23 @@ export default function AboutPage() {
       if (gcChildren && gcChildren.length > 0) {
         gsap.fromTo(gcChildren,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-            scrollTrigger: { trigger: generalContractingRef.current, start: 'top 85%' } }
+          {
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: generalContractingRef.current, start: 'top 85%' }
+          }
         );
       }
 
-      // Who We Are section
-      if (whoWeAreHeadingRef.current) {
-        const [wWords] = splitTextToWords(whoWeAreHeadingRef.current);
-        animateWordsIn(wWords, {
-          from: { y: 40, opacity: 0 },
-          to: { duration: 1, stagger: 0.04, ease: 'power4.out',
-            scrollTrigger: { trigger: whoWeAreRef.current, start: 'top 75%' } }
-        });
+      // Who We Are section word animation
+      const whoWeAreWordEls = whoWeAreWordsRef.current.filter(Boolean) as HTMLSpanElement[];
+      if (whoWeAreWordEls.length > 0) {
+        gsap.fromTo(whoWeAreWordEls,
+          { y: 40, opacity: 0 },
+          {
+            y: 0, opacity: 1, duration: 1, stagger: 0.04, ease: 'power4.out',
+            scrollTrigger: { trigger: whoWeAreRef.current, start: 'top 75%' }
+          }
+        );
       }
 
       // Stats counters
@@ -83,8 +69,10 @@ export default function AboutPage() {
       if (statsChildren && statsChildren.length > 0) {
         gsap.fromTo(statsChildren,
           { y: 40, opacity: 0, scale: 0.9 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out',
-            scrollTrigger: { trigger: statsRef.current, start: 'top 80%' } }
+          {
+            y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out',
+            scrollTrigger: { trigger: statsRef.current, start: 'top 80%' }
+          }
         );
       }
 
@@ -93,8 +81,10 @@ export default function AboutPage() {
       if (awardsChildren && awardsChildren.length > 0) {
         gsap.fromTo(awardsChildren,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
-            scrollTrigger: { trigger: awardsRef.current, start: 'top 85%' } }
+          {
+            y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: awardsRef.current, start: 'top 85%' }
+          }
         );
       }
 
@@ -103,8 +93,10 @@ export default function AboutPage() {
       if (historyChildren && historyChildren.length > 0) {
         gsap.fromTo(historyChildren,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
-            scrollTrigger: { trigger: historyRef.current, start: 'top 85%' } }
+          {
+            y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: historyRef.current, start: 'top 85%' }
+          }
         );
       }
     }, mainRef);
@@ -112,89 +104,50 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div ref={mainRef} className="flex flex-col w-full bg-[#121B1D]">
-
-      {/* ════════════════════════════════════════════
-          HERO SECTION
-          Original: padding 150px 0px 70px 0px, 72px heading
-         ════════════════════════════════════════════ */}
-      <section className="relative w-full pt-[150px] pb-[70px] flex items-center justify-center overflow-hidden bg-black">
-        {/* Background */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(/assets/images/2023/06/about-banner.jpg)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80 z-10" />
-        {/* Curtain overlay */}
-        <div ref={overlayRef} className="absolute inset-0 bg-black z-20 origin-top" />
-
-        {/* Content */}
-        <div className="relative z-30 text-center px-6 max-w-6xl mx-auto">
-          <h1
-            ref={heroHeadingRef}
-            className="text-[10vw] md:text-[72px] font-bold text-white leading-[1em] mb-6"
-            style={{ perspective: '1200px', fontFamily: 'var(--font-montserrat), sans-serif' }}
-          >
-            We are a corporate Interior<br />
-            fit out &amp; design build firm
-          </h1>
-        </div>
-
-        {/* Mask slider area — 37% aspect ratio with background image */}
-        <div className="relative z-[1] w-full overflow-hidden" style={{ marginTop: '-50px' }}>
-          <div
-            className="w-full bg-cover bg-center"
-            style={{
-              paddingTop: '37%',
-              backgroundImage: 'url(/assets/images/2023/06/about-banner.jpg)',
-              opacity: 0.6,
-            }}
-          />
-        </div>
-
-        {/* "Scroll" text at bottom */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-[2] flex flex-col items-center animate-bounce">
-          <span className="text-xs text-gray-400 uppercase tracking-[0.3em] mb-2">Scroll</span>
-          <div className="w-[1px] h-10 bg-gradient-to-b from-gray-400 to-transparent" />
-        </div>
-      </section>
-
+    <div ref={mainRef} className="flex  flex-col w-full bg-[#121B1D]">
+      <PageHero
+        heading={<>We are a corporate Interior<br className="hidden md:inline" /> fit out &amp; design build firm</>}
+        backgroundImage="/assets/images/2023/06/about-banner.jpg"
+        paddingClass="pt-[150px] md:pt-[250px] pb-[70px]"
+      />
       {/* ════════════════════════════════════════════
           DESIGN & BUILD SECTION
-          Original: left 35% (margin-left 15%), right 64.917% (border-left)
          ════════════════════════════════════════════ */}
-      <section ref={designBuildRef} className="py-16 md:py-24 bg-[#121B1D]">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16 max-w-6xl mx-auto">
-            <div className="md:ml-[15%]">
-              <h2 className="text-5xl md:text-[60px] font-normal text-white leading-[70px] mb-6" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
-                Design<br />
-                <span className="text-[#0065AC]">&amp; Build</span>
-              </h2>
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-relaxed mb-6" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                We offer interior design &amp; visualization, furniture sourcing + delivery among other interior fit-out solutions.
-              </p>
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-[30px]" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                Our process incorporates the transformative design philosophy, providing precise results at exceptional speed and cost-effective prices through best-in-class technology &amp; tools.
-              </p>
-            </div>
-            <div className="border-t md:border-t-0 md:border-l border-[#FFFFFF33] pl-0 md:pl-8 pt-6 md:pt-0 pb-[55px]">
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-[30px] mb-6" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                Our in-house corporate interior designers, project managers, architects &amp; quantity surveyors come with many years of work-ex, ultimately delivering the best results you can find.
-              </p>
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-[30px]" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                We also undertake projects involving the improvement of existing office designs &mdash; we stay true to the original layout and identify the right enhancements to make your workspace shine the brightest in its league.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SplitTextSection
+        ref={designBuildRef as any}
+        heading={<>Design<br />&amp; Build</>}
+        content={
+          <>
+            <p>
+              We offer interior design &amp; visualization, furniture sourcing + delivery among other interior fit-out solutions.
+            </p>
+            <p>
+              Our process incorporates the transformative design philosophy, providing precise results at exceptional speed and cost-effective prices through best-in-class technology &amp; tools.
+            </p>
+            <p>
+              Our in-house corporate interior designers, project managers, architects &amp; quantity surveyors come with many years of work-ex, ultimately delivering the best results you can find. We also undertake projects involving the improvement of existing office designs &mdash; we stay true to the original layout and identify the right enhancements to make your workspace shine the brightest in its league.
+            </p>
+          </>
+        }
+      />
 
+      <SplitTextSection
+        ref={generalContractingRef as any}
+        heading={<>General<br />Contracting</>}
+        content={
+          <>
+            <p>
+              From planning + design to complete construction, our office fit-out contractors create workplaces that reflect creativity &amp; innovation.
+            </p>
+            <p>
+              We offer end-to-end solutions to create deeply intuitive and aesthetically pleasing workspaces. What makes us unique is how we actively collaborate, discuss and work with our clients + leading construction professionals worldwide to ensure our outcome exceeds clients&apos; expectations.
+            </p>
+            <p>
+              Currently, our focus is on integrating sustainable solutions to complete projects. In the end, what you get is a state-of-the-art workspace that reflects your brand&apos;s true essence and promotes your staff&apos;s overall well-being. Some of the world&apos;s most recognizable brands have workspaces we have designed.
+            </p>
+          </>
+        }
+      />
       {/* ════════════════════════════════════════════
           FULL-WIDTH IMAGE
           Original: 354px height, object-fit cover, hover scale(1.05)
@@ -214,34 +167,8 @@ export default function AboutPage() {
 
       {/* ════════════════════════════════════════════
           GENERAL CONTRACTING SECTION
-          Original: Same layout as Design & Build
          ════════════════════════════════════════════ */}
-      <section ref={generalContractingRef} className="py-16 md:py-24 bg-[#121B1D]">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-16 max-w-6xl mx-auto">
-            <div className="md:ml-[15%]">
-              <h2 className="text-5xl md:text-[60px] font-normal text-white leading-[70px] mb-6" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
-                General<br />
-                <span className="text-[#0065AC]">Contracting</span>
-              </h2>
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-[30px] mb-6" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                From planning + design to complete construction, our office fit-out contractors create workplaces that reflect creativity &amp; innovation.
-              </p>
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-[30px]" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                We offer end-to-end solutions to create deeply intuitive and aesthetically pleasing workspaces.
-              </p>
-            </div>
-            <div className="border-t md:border-t-0 md:border-l border-[#FFFFFF33] pl-0 md:pl-8 pt-6 md:pt-0 pb-[55px]">
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-[30px] mb-6" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                What makes us unique is how we actively collaborate, discuss and work with our clients + leading construction professionals worldwide to ensure our outcome exceeds clients&apos; expectations.
-              </p>
-              <p className="text-[#A7A7A7] text-lg md:text-xl leading-[30px]" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                Currently, our focus is on integrating sustainable solutions to complete projects. In the end, what you get is a state-of-the-art workspace that reflects your brand&apos;s true essence and promotes your staff&apos;s overall well-being. Some of the world&apos;s most recognizable brands have workspaces we have designed.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* ════════════════════════════════════════════
           WHO WE ARE SECTION
@@ -269,7 +196,15 @@ export default function AboutPage() {
               className="text-[12vw] md:text-[100px] font-bold text-outline-hover leading-[1em]"
               style={{ fontFamily: 'var(--font-poppins), sans-serif' }}
             >
-              Who we are
+              {whoWeAreWords.map((word, i) => (
+                <span
+                  key={i}
+                  ref={(el) => { whoWeAreWordsRef.current[i] = el; }}
+                  style={{ display: 'inline-block', opacity: 0 }}
+                >
+                  {word}{i < whoWeAreWords.length - 1 ? '\u00A0' : ''}
+                </span>
+              ))}
             </h2>
           </div>
 
