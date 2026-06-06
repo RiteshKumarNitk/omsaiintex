@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { splitTextToWords, animateWordsIn } from '@/lib/gsap-utils';
+import HeroThreeScene from '@/components/three/HeroThreeScene';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,53 +23,62 @@ const statItems = [
   { value: "40M+", label: "sq. ft delivered" },
   { value: "1400+", label: "projects delivered" },
   { value: "39M+", label: "sq. ft ongoing" },
-  { value: "20+",  label: "years of experience" },
+  { value: "20+", label: "years of experience" },
 ];
 
 const teamMembers = [
   { name: "Venkatesh Venugopal", role: "Director", image: "/assets/images/2023/06/Venkatesh-V2.jpg" },
-  { name: "Illavarasan V",       role: "Director", image: "/assets/images/2023/06/Illavarasan-V2.jpg" },
-  { name: "Nanjundaraje Urs A",  role: "Director", image: "/assets/images/2023/06/team-image3.jpg" },
-  { name: "Prakash Srinivas",    role: "Director", image: "/assets/images/2023/06/Prakash-S2.jpg" },
+  { name: "Illavarasan V", role: "Director", image: "/assets/images/2023/06/Illavarasan-V2.jpg" },
+  { name: "Nanjundaraje Urs A", role: "Director", image: "/assets/images/2023/06/team-image3.jpg" },
+  { name: "Prakash Srinivas", role: "Director", image: "/assets/images/2023/06/Prakash-S2.jpg" },
 ];
 
 const clientLogos = [
-  { src: "/assets/images/2023/06/intel-1.jpg",           alt: "Intel" },
-  { src: "/assets/images/2023/05/americanexpress.png",    alt: "American Express" },
-  { src: "/assets/images/2023/05/astrazenca.png",         alt: "AstraZeneca" },
-  { src: "/assets/images/2023/05/barclays.png",           alt: "Barclays" },
-  { src: "/assets/images/2023/05/danske.png",             alt: "Danske" },
-  { src: "/assets/images/2023/05/dell.png",               alt: "Dell" },
-  { src: "/assets/images/2023/05/fidility.png",           alt: "Fidelity" },
-  { src: "/assets/images/2023/05/hewlett.png",            alt: "Hewlett Packard" },
-  { src: "/assets/images/2023/05/hp.png",                 alt: "HP" },
-  { src: "/assets/images/2023/05/jpmorgan.png",           alt: "JPMorgan" },
-  { src: "/assets/images/2023/05/pwc.png",                alt: "PwC" },
-  { src: "/assets/images/2023/05/schieder.png",           alt: "Schneider" },
-  { src: "/assets/images/2023/05/standardchartered.png",  alt: "Standard Chartered" },
-  { src: "/assets/images/2023/05/tcs.png",                alt: "TCS" },
-  { src: "/assets/images/2023/05/vmware.png",             alt: "VMware" },
-  { src: "/assets/images/2023/05/yahoo.png",              alt: "Yahoo" },
+  { src: "/assets/images/2023/05/americanexpress.png", alt: "American Express" },
+  { src: "/assets/images/2023/05/astrazenca.png", alt: "AstraZeneca" },
+  { src: "/assets/images/2023/05/barclays.png", alt: "Barclays" },
+  { src: "/assets/images/2023/05/danske.png", alt: "Danske" },
+  { src: "/assets/images/2023/05/dell.png", alt: "Dell" },
+  { src: "/assets/images/2023/05/fidility.png", alt: "Fidelity" },
+  { src: "/assets/images/2023/05/hewlett.png", alt: "Hewlett Packard" },
+  { src: "/assets/images/2023/05/hp.png", alt: "HP" },
+  { src: "/assets/images/2023/05/jpmorgan.png", alt: "JPMorgan" },
+  { src: "/assets/images/2023/05/pwc.png", alt: "PwC" },
+  { src: "/assets/images/2023/05/schieder.png", alt: "Schneider" },
+  { src: "/assets/images/2023/05/standardchartered.png", alt: "Standard Chartered" },
+  { src: "/assets/images/2023/05/tcs.png", alt: "TCS" },
+  { src: "/assets/images/2023/05/vmware.png", alt: "VMware" },
+  { src: "/assets/images/2023/05/yahoo.png", alt: "Yahoo" },
 ];
 
 const projects = [
-  { title: "INTEL PROJECT",  desc: "Fully furnished 1,40,000 sq. ft. headquarters.", image: "/assets/images/2023/06/intel-1.jpg" },
-  { title: "SERVICENOW",     desc: "Cutting-edge workspace for a global tech leader.", image: "/assets/images/2023/06/servicenow-1.jpg" },
-  { title: "VISA",           desc: "High-end corporate interiors for a financial giant.", image: "/assets/images/2023/06/visa-1.jpg" },
-  { title: "ACCENTURE",      desc: "Large-scale design-build project.", image: "/assets/images/2023/06/accenture-1.jpg" },
+  { title: "INTEL PROJECT", desc: "Fully furnished 1,40,000 sq. ft. headquarters.", image: "/assets/images/2023/06/intel-1.jpg" },
+  { title: "SERVICENOW", desc: "Cutting-edge workspace for a global tech leader.", image: "/assets/images/2023/06/servicenow-1.jpg" },
+  { title: "VISA", desc: "High-end corporate interiors for a financial giant.", image: "/assets/images/2023/06/visa-1.jpg" },
+  { title: "ACCENTURE", desc: "Large-scale design-build project.", image: "/assets/images/2023/06/accenture-1.jpg" },
 ];
 
 const testimonials = [
-  { quote: "We highly recommend Om Sai Intex for any project where quality and time are of importance.",
-    author: "Lalit kumar Gupta", role: "Adobe, Head-India facilities" },
-  { quote: "We find Om Sai Intex resourceful, dedicated and capable of delivering good quality. They have a dedicated team who deliver on time.",
-    author: "P.S. Prasad", role: "HP, Corporate Manager (Facilities)" },
-  { quote: "The team working on the project was knowledgeable and very co-operative in fixing problems and meeting critical deadlines.",
-    author: "B.R. Ravi", role: "iGATE, Head-India facilities" },
-  { quote: "We are very pleased with their civil and interior works and greatly appreciate their commitment to our Bangalore project.",
-    author: "Jayanth Joseph", role: "Oracle, Vice President - RE&F India" },
-  { quote: "We hereby acknowledge & recognise your Outstanding Performance with High Safety & Quality Standards of Microsoft Bangalore.",
-    author: "Arvind Prakash Ayyaswamy", role: "Microsoft, Real Estate Portfolio Manager" },
+  {
+    quote: "We highly recommend Om Sai Intex for any project where quality and time are of importance.",
+    author: "Lalit kumar Gupta", role: "Adobe, Head-India facilities"
+  },
+  {
+    quote: "We find Om Sai Intex resourceful, dedicated and capable of delivering good quality. They have a dedicated team who deliver on time.",
+    author: "P.S. Prasad", role: "HP, Corporate Manager (Facilities)"
+  },
+  {
+    quote: "The team working on the project was knowledgeable and very co-operative in fixing problems and meeting critical deadlines.",
+    author: "B.R. Ravi", role: "iGATE, Head-India facilities"
+  },
+  {
+    quote: "We are very pleased with their civil and interior works and greatly appreciate their commitment to our Bangalore project.",
+    author: "Jayanth Joseph", role: "Oracle, Vice President - RE&F India"
+  },
+  {
+    quote: "We hereby acknowledge & recognise your Outstanding Performance with High Safety & Quality Standards of Microsoft Bangalore.",
+    author: "Arvind Prakash Ayyaswamy", role: "Microsoft, Real Estate Portfolio Manager"
+  },
 ];
 
 // ── Component ─────────────────────────────────
@@ -79,11 +89,15 @@ export default function HomePage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroButtonsRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const visionRef = useRef<HTMLDivElement>(null);
   const qualitiesRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const projectTrackRef = useRef<HTMLDivElement>(null);
   const testimonialRef = useRef<HTMLDivElement>(null);
+  const clientsTrackRef = useRef<HTMLDivElement>(null);
 
   /* ── slide rotation ── */
   useEffect(() => {
@@ -94,21 +108,62 @@ export default function HomePage() {
   /* ── GSAP ── */
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero overlay
+      // Hero overlay curtain
       if (overlayRef.current) {
         gsap.to(overlayRef.current, {
-          height: '0%', duration: 1.5, ease: 'power4.inOut',
+          height: '0%', duration: 1.5, ease: 'power4.inOut', delay: 0.2,
         });
       }
+
+      // Hero tagline
+      const tagline = heroContentRef.current?.querySelector('.hero-tagline');
+      if (tagline) {
+        gsap.fromTo(tagline,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.8 }
+        );
+      }
+
       // Hero heading split
       if (heroTitleRef.current) {
         const els = heroTitleRef.current.querySelectorAll('h1');
         els.forEach(el => {
           const [words] = splitTextToWords(el);
           animateWordsIn(words, {
-            from: { y: 60, opacity: 0 },
-            to: { duration: 1, stagger: 0.04, ease: 'power4.out', delay: 0.6 },
+            from: { y: 80, opacity: 0, rotateX: -25 },
+            to: { duration: 1, stagger: 0.04, ease: 'power4.out', delay: 1 },
           });
+        });
+      }
+
+      // Hero subtitle
+      const subtitle = heroContentRef.current?.querySelector('.hero-subtitle');
+      if (subtitle) {
+        gsap.fromTo(subtitle,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 1.4 }
+        );
+      }
+
+      // Hero buttons
+      if (heroButtonsRef.current) {
+        gsap.fromTo(heroButtonsRef.current.children,
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power3.out', delay: 1.7 }
+        );
+      }
+
+      // Slides parallax on scroll
+      if (heroRef.current) {
+        gsap.to(heroRef.current.querySelectorAll('.hero-slide'), {
+          y: 80,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.5,
+          },
         });
       }
 
@@ -117,42 +172,76 @@ export default function HomePage() {
       if (statChildren && statChildren.length > 0) {
         gsap.fromTo(statChildren,
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-            scrollTrigger: { trigger: statsRef.current?.parentElement, start: 'top 85%' } }
+          {
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: statsRef.current?.parentElement, start: 'top 85%' }
+          }
         );
       }
 
       // Visionaries heading
       gsap.fromTo('.vision-title',
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: visionRef.current, start: 'top 80%' } }
+        {
+          y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: visionRef.current, start: 'top 80%' }
+        }
       );
       gsap.fromTo('.vision-card',
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-          scrollTrigger: { trigger: visionRef.current, start: 'top 75%' } }
+        {
+          y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+          scrollTrigger: { trigger: visionRef.current, start: 'top 75%' }
+        }
       );
 
       // Qualities
       gsap.fromTo('.quality-chip',
         { scale: 0.85, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.7)',
-          scrollTrigger: { trigger: qualitiesRef.current, start: 'top 85%' } }
+        {
+          scale: 1, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.7)',
+          scrollTrigger: { trigger: qualitiesRef.current, start: 'top 85%' }
+        }
       );
 
-      // Projects
+      // Projects - scroll-triggered fade in
       gsap.fromTo('.project-card',
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out',
-          scrollTrigger: { trigger: projectsRef.current, start: 'top 80%' } }
+        {
+          y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+          scrollTrigger: { trigger: projectsRef.current, start: 'top 80%' }
+        }
       );
+
+      // Project track - auto scroll marquee
+      if (projectTrackRef.current) {
+        const tween = gsap.to(projectTrackRef.current, {
+          xPercent: -50,
+          ease: 'none',
+          duration: 45,
+          repeat: -1,
+        });
+        projectTrackRef.current.addEventListener('mouseenter', () => tween.pause());
+        projectTrackRef.current.addEventListener('mouseleave', () => tween.resume());
+      }
+
+      // Clients Slider Marquee
+      if (clientsTrackRef.current) {
+        gsap.to(clientsTrackRef.current, {
+          xPercent: -50,
+          ease: "none",
+          duration: 35, // Slider speed
+          repeat: -1,
+        });
+      }
 
       // Testimonials
       gsap.fromTo('.testimonial-card',
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
-          scrollTrigger: { trigger: testimonialRef.current, start: 'top 80%' } }
+        {
+          y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+          scrollTrigger: { trigger: testimonialRef.current, start: 'top 80%' }
+        }
       );
     }, mainRef);
     return () => ctx.revert();
@@ -172,9 +261,8 @@ export default function HomePage() {
         {slides.map((s, i) => (
           <div
             key={i}
-            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
-              i === slideIdx ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
-            }`}
+            className={`hero-slide absolute inset-0 z-[1] transition-all duration-1000 ease-in-out ${i === slideIdx ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
+              }`}
             style={{
               backgroundImage: `url(${s.image})`,
               backgroundSize: 'cover',
@@ -182,24 +270,26 @@ export default function HomePage() {
             }}
           />
         ))}
-        {/* Overlay gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80 z-10" />
+        {/* Overlay gradient - lighter for better visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60 z-10" />
         {/* Curtain overlay for entrance */}
         <div ref={overlayRef} className="absolute inset-0 bg-black z-20 origin-top" />
 
         {/* Hero content */}
-        <div ref={heroTitleRef} className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4">
-          <p className="text-white/50 text-sm md:text-base uppercase tracking-[0.25em] mb-4 font-light" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-            Om Sai Intex Pvt. Ltd.
+        <div ref={heroContentRef} className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4">
+          <p className="hero-tagline text-white/60 text-sm md:text-base uppercase tracking-[0.25em] mb-4 font-light" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
+            Om Sai Intex — Premium Turnkey Solutions
           </p>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.95] tracking-tight" style={{ fontFamily: 'var(--font-montserrat), sans-serif', perspective: '1200px' }}>
-            {slides[slideIdx].title}<br />
-            <span className="text-[#0065AC]">{slides[slideIdx].subtitle}</span>
-          </h1>
-          <p className="mt-6 text-white/70 text-lg md:text-xl max-w-xl font-light" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
+          <div ref={heroTitleRef}>
+            <h1 className="text-[3rem] md:text-[6.25rem] font-bold leading-[1.1] tracking-tight" style={{ fontFamily: 'var(--font-poppins), sans-serif', perspective: '1200px' }}>
+              <span className="text-outline">{slides[slideIdx].title}</span><br />
+              <span className="text-[#0065AC]">{slides[slideIdx].subtitle}</span>
+            </h1>
+          </div>
+          <p className="hero-subtitle mt-6 text-white/70 text-lg md:text-xl max-w-xl font-light" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
             Creating spatially exciting workspaces tuned to its people
           </p>
-          <div className="mt-10 flex gap-4">
+          <div ref={heroButtonsRef} className="mt-10 flex gap-4">
             <Link
               href="/projects"
               className="inline-flex items-center px-8 py-3.5 bg-[#0065AC] text-white font-medium rounded hover:bg-[#00508A] transition-all duration-300 text-base"
@@ -220,15 +310,19 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Three.js background - behind everything */}
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <HeroThreeScene />
+        </div>
+
         {/* Slide indicators */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2.5">
           {slides.map((_, i) => (
             <button
               key={i}
               onClick={() => goSlide(i)}
-              className={`transition-all duration-500 rounded-full ${
-                i === slideIdx ? 'w-10 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/60'
-              }`}
+              className={`transition-all duration-500 rounded-full ${i === slideIdx ? 'w-10 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/60'
+                }`}
             />
           ))}
         </div>
@@ -324,60 +418,61 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════
           SECTION 5 — CLIENTS & PARTNERS
          ════════════════════════════════════════════ */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-20 md:py-28 bg-white overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 text-center">
           <h2 className="text-4xl md:text-6xl font-bold text-[#252525] mb-12" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
             Clients &amp; Partners
           </h2>
 
-          {/* Client logos grid */}
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-6xl mx-auto">
-            {clientLogos.map((cl, i) => (
-              <div key={i} className="flex items-center justify-center p-4 aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500">
-                <img src={cl.src} alt={cl.alt} className="max-w-full max-h-full object-contain" />
-              </div>
-            ))}
+          {/* Client logos slider */}
+          <div className="relative max-w-6xl mx-auto overflow-hidden">
+            {/* Fade edges */}
+            <div className="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+            <div ref={clientsTrackRef} className="flex gap-8 items-center w-max">
+              {[...clientLogos, ...clientLogos].map((cl, i) => (
+                <div key={i} className="flex-shrink-0 w-[150px] md:w-[200px] flex items-center justify-center p-4 aspect-[4/3] grayscale hover:grayscale-0 transition-all duration-500">
+                  <img src={cl.src} alt={cl.alt} className="max-w-full max-h-full object-contain" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════
-          SECTION 6 — PROJECTS SHOWCASE
+          SECTION 6 — FEATURED PROJECTS
          ════════════════════════════════════════════ */}
-      <section ref={projectsRef} className="py-20 md:py-28 bg-[#121B1D]">
+      <section ref={projectsRef} className=" bg-white overflow-hidden">
         <div className="container mx-auto px-6 md:px-12">
-          <h2 className="text-center text-[#A7A7A7] text-lg mb-2 uppercase tracking-[0.15em]" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-            Our Work
-          </h2>
-          <h3 className="text-center text-4xl md:text-5xl font-bold text-white mb-16" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
-            Featured <span className="text-[#0065AC]">Projects</span>
-          </h3>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {projects.map((p, i) => (
-              <div key={i} className="project-card group relative overflow-hidden rounded-lg border border-white/5 bg-black/40">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+          <div className="relative max-w-6xl mx-auto overflow-hidden">
+            <div className="absolute top-0 bottom-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute top-0 bottom-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+            <div ref={projectTrackRef} className="flex w-max">
+              {[...projects, ...projects].map((p, i) => (
+                <div key={i} className="project-card relative overflow-hidden shadow-lg shadow-black/5 flex-shrink-0 w-[280px] md:w-[320px]">
+                  <div className="aspect-[3/4]">
+                    <img src={p.image} alt={p.title} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                    <h4 className="text-sm font-bold text-white/70 uppercase tracking-wider mb-2" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
+                      {p.title}
+                    </h4>
+                    <Link
+                      href="/projects"
+                      className="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.15em] text-white/50 hover:text-white transition-all duration-300"
+                    >
+                      View Details
+                      <svg className="w-2.5 h-2.5 ml-1 hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
                 </div>
-                <div className="p-5">
-                  <h4 className="text-lg font-bold text-white uppercase tracking-wider mb-2" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
-                    {p.title}
-                  </h4>
-                  <p className="text-[#A7A7A7] text-sm leading-relaxed" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-                    {p.desc}
-                  </p>
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center mt-4 text-xs font-bold uppercase tracking-[0.15em] text-white/70 hover:text-[#0065AC] transition-colors duration-300"
-                  >
-                    View Details
-                    <svg className="w-3 h-3 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -417,15 +512,15 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             {["BESPOKE", "CREATIVE", "STIMULATING", "HUMANISTIC",
               "FUNCTIONAL", "INSPIRING", "DYNAMIC", "HOLISTIC"].map((q, i) => (
-              <div
-                key={i}
-                className="quality-chip border border-white/10 rounded-lg py-8 px-4 bg-white/[0.02] hover:border-[#0065AC]/40 hover:bg-[#0065AC]/5 transition-all duration-300"
-              >
-                <span className="text-lg font-bold text-white tracking-wider" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
-                  {q}
-                </span>
-              </div>
-            ))}
+                <div
+                  key={i}
+                  className="quality-chip border border-white/10 rounded-lg py-8 px-4 bg-white/[0.02] hover:border-[#0065AC]/40 hover:bg-[#0065AC]/5 transition-all duration-300"
+                >
+                  <span className="text-lg font-bold text-white tracking-wider" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
+                    {q}
+                  </span>
+                </div>
+              ))}
           </div>
         </div>
       </section>

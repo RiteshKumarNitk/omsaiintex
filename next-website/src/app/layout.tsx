@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SmoothScrollProvider from "@/components/animations/SmoothScrollProvider";
+import ClientCursorWrapper from "@/components/animations/ClientCursorWrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", weight: ['300','400','500','600','700','800','900'] });
@@ -34,6 +35,7 @@ export default function RootLayout({
           <main className="flex-grow">{children}</main>
           <Footer />
         </SmoothScrollProvider>
+        <ClientCursorWrapper />
       </body>
     </html>
   );
