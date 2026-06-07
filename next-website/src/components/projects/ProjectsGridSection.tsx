@@ -1,13 +1,9 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { projectItems } from '@/data/projects/items';
-
-gsap.registerPlugin(ScrollTrigger);
 
 function ProjectCard({ project, index }: { project: typeof projectItems[0]; index: number }) {
   return (
@@ -78,35 +74,10 @@ function ProjectCard({ project, index }: { project: typeof projectItems[0]; inde
 }
 
 export default React.memo(function ProjectsGridSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (headingRef.current) {
-        gsap.fromTo(headingRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-            scrollTrigger: { trigger: headingRef.current, start: 'top 85%' } }
-        );
-      }
-
-      const cards = sectionRef.current?.querySelectorAll('.project-card');
-      if (cards && cards.length > 0) {
-        gsap.fromTo(cards,
-          { y: 60, opacity: 0, scale: 0.95 },
-          { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: { amount: 0.6, from: 'start' }, ease: 'power3.out',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
-        );
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="py-20 md:py-32 bg-[#121B1D]">
+    <section className="py-20 md:py-32 bg-[#121B1D]">
       <div className="container mx-auto px-6 md:px-12">
-        <div ref={headingRef} className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-16 md:mb-20">
           <span className="text-[#0065AC] text-sm font-medium uppercase tracking-[0.2em] mb-4 block">
             Portfolio
           </span>
@@ -120,9 +91,7 @@ export default React.memo(function ProjectsGridSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
           {projectItems.map((project, idx) => (
-            <div key={idx}>
-              <ProjectCard project={project} index={idx} />
-            </div>
+            <ProjectCard key={idx} project={project} index={idx} />
           ))}
         </div>
       </div>
