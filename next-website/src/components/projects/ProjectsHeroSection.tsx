@@ -44,7 +44,7 @@ export default React.memo(function ProjectsHeroSection() {
           Our
         </h1>
         <h2 className="text-5xl md:text-[6.875rem] font-bold text-outline-hover leading-[1em] tracking-tight mb-4" style={{ fontFamily: 'var(--font-poppins), sans-serif' }}>
-          Our Pride
+          Pride
         </h2>
         <p ref={descRef} className="mt-8 text-[#A7A7A7] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
           Many have trusted us, and our exhaustive list of notable clients demonstrates our ability to bring great ideas to life.

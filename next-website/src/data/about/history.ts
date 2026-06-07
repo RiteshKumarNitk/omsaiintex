@@ -1,7 +1,7 @@
 import { HistoryItem } from '@/types/about';
 
 export const historyItems: HistoryItem[] = [
-  { year: '2003', text: 'Foundation of Om Sai Intex with a vision to transform commercial spaces.' },
+  { year: '2003', text: 'Founded as Om Sai Intex with a vision to transform commercial workspaces. Now MDS Interior.' },
   { year: '2008', text: 'Established Sleekline Modular Solutions manufacturing facility at Hennur, Bangalore.' },
   { year: '2010', text: 'Expanded operations across Karnataka with a diverse portfolio of projects.' },
   { year: '2015', text: 'Crossed 500+ projects milestone with growing team of skilled professionals.' },

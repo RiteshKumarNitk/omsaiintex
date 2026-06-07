@@ -58,13 +58,13 @@ export default function BeforeAfterSlider() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 bg-[#0a0a0a]">
+    <section ref={sectionRef} className="py-24 bg-[#121B1D]">
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Before &amp; <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">After</span>
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
+            Before &amp; <span className="text-gradient">After</span>
           </h2>
-          <p className="text-gray-400 text-lg">Drag the slider to see the transformation</p>
+          <p className="text-gray-400 text-lg" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>Drag the slider to see the transformation</p>
         </div>
 
         <div
@@ -96,7 +96,7 @@ export default function BeforeAfterSlider() {
             className="absolute inset-0"
             style={{ clipPath: 'inset(0 50% 0 0)' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/50 to-emerald-900/50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0065AC]/50 to-[#34d399]/50 flex items-center justify-center">
               <div className="text-white text-center">
                 <svg className="w-20 h-20 mx-auto mb-4 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />

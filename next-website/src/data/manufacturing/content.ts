@@ -15,7 +15,7 @@ export const manufacturingContent: ManufacturingContent[] = [
     title: 'Origins of\nSleekline Modular Solutions',
     paragraphs: [
       'The genesis of Sleekline Modular Solutions is the output of four civil engineers and visionaries. Set up in 2008, these four men brought 100+ man-hours of experience coupled with strengths like being actively involved in projects, in-depth technical knowledge, and a high degree of reliability & commitment.',
-      'Their collective experience assisted in manufacturing interior products and setting up an expansive network of suppliers, helping OSIPL become an enterprise synonymous with quality and excellence.',
+      'Their collective experience assisted in manufacturing interior products and setting up an expansive network of suppliers, helping MDS Interior become an enterprise synonymous with quality and excellence.',
     ],
     imageFirst: true,
   },
@@ -37,8 +37,8 @@ export const manufacturingContent: ManufacturingContent[] = [
     title: 'What Makes Us\nReliable?',
     paragraphs: [
       'The offsite procurement, cost estimation, and administration teams form our backbone.',
-      'Unsurprisingly, all team members bring vast experience to Om Sai Intex.',
-      'Om Sai Intex comprises highly experienced project team managers, among other onsite team members. All team members have experience in successfully dealing with dynamic work circumstances and clients.',
+      'Unsurprisingly, all team members bring vast experience to MDS Interior.',
+      'MDS Interior comprises highly experienced project team managers, among other onsite team members. All team members have experience in successfully dealing with dynamic work circumstances and clients.',
     ],
     imageFirst: true,
   },

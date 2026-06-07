@@ -2,11 +2,11 @@ import { Testimonial } from '@/types/home';
 
 export const testimonials: Testimonial[] = [
   {
-    quote: "We highly recommend Om Sai Intex for any project where quality and time are of importance.",
+    quote: "We highly recommend MDS Interior for any project where quality and time are of importance.",
     author: "Lalit kumar Gupta", role: "Adobe, Head-India facilities"
   },
   {
-    quote: "We find Om Sai Intex resourceful, dedicated and capable of delivering good quality. They have a dedicated team who deliver on time.",
+    quote: "We find MDS Interior resourceful, dedicated and capable of delivering good quality. They have a dedicated team who deliver on time.",
     author: "P.S. Prasad", role: "HP, Corporate Manager (Facilities)"
   },
   {

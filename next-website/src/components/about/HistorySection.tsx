@@ -23,7 +23,7 @@ export default React.memo(function HistorySection() {
             className="text-[12vw] md:text-[100px] font-bold text-outline leading-[110px] tracking-tighter"
             style={{ fontFamily: 'var(--font-poppins), sans-serif', letterSpacing: '-2px' }}
           >
-            OSIPL History
+            MDS Interior History
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">

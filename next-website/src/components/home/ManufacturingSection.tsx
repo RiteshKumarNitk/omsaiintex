@@ -1,25 +1,45 @@
-import React from 'react';
+'use client';
+
+import React, { Suspense } from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
+const ManufacturingThreeScene = dynamic(
+  () => import('@/components/three/ManufacturingThreeScene'),
+  { ssr: false },
+);
+
 export default React.memo(function ManufacturingSection() {
   return (
-    <section className="relative h-[72vh] min-h-[500px] overflow-hidden">
-      <Image
-        src="/assets/images/2023/06/manufacturing-unit.jpg"
-        alt="Manufacturing Unit"
-        fill
-        className="object-cover"
-        priority
-        sizes="100vw"
-      />
+    <section className="relative h-[72vh] min-h-[500px] overflow-hidden bg-[#0a0a14]">
+      {/* Three.js animated background */}
+      <Suspense
+        fallback={
+          <Image
+            src="/assets/images/2023/06/manufacturing-unit.jpg"
+            alt="Manufacturing Unit"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+        }
+      >
+        <ManufacturingThreeScene />
+      </Suspense>
+
+      {/* Gradient overlays */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: 'linear-gradient(180deg, #00000000 0%, #000000 100%)',
         }}
       />
-      <div className="absolute bottom-0 left-0 right-0 p-10 md:p-16">
+      <div className="absolute inset-0 bg-[#0a0a14]/30 z-[1] pointer-events-none" />
+
+      {/* Content */}
+      <div className="absolute bottom-0 left-0 right-0 p-10 md:p-16 z-[2]">
         <div className="container mx-auto px-6 md:px-12">
           <p
             className="text-white/50 text-sm uppercase tracking-[0.25em] mb-2"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -40,14 +40,16 @@ function ParticleField({ count = 2000 }) {
     }
   });
 
+  useEffect(() => {
+    if (meshRef.current) {
+      meshRef.current.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      meshRef.current.geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    }
+  }, [positions, sizes]);
+
   return (
     <points ref={meshRef}>
-      <bufferGeometry
-        onUpdate={(self) => {
-          self.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-          self.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-        }}
-      />
+      <bufferGeometry />
       <pointsMaterial
         size={0.05}
         color="#4f8cf7"
@@ -75,6 +77,7 @@ function FloatingGeometries() {
         scale: Math.random() * 0.5 + 0.3,
         color: colors[i % colors.length],
         type: i % 3,
+        speed: 0.5 + Math.random() * 1.5,
       });
     }
     return geo;
@@ -85,7 +88,7 @@ function FloatingGeometries() {
       {geometries.map((geo, i) => (
         <Float
           key={i}
-          speed={0.5 + Math.random() * 1.5}
+          speed={geo.speed}
           rotationIntensity={0.3}
           floatIntensity={0.5}
           position={geo.position as [number, number, number]}
@@ -112,7 +115,7 @@ function FloatingGeometries() {
   );
 }
 
-export default function ThreeScene() {
+export default function PremiumThreeScene() {
   return (
     <div className="absolute inset-0 z-0">
       <Canvas

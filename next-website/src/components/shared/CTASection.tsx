@@ -34,7 +34,7 @@ export default function CTASection({
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#0065AC] py-12 md:py-16">
+    <section ref={sectionRef} className="bg-[#0065AC] py-6 md:py-8">
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
         <h2 className="text-2xl md:text-3xl font-semibold text-white text-center md:text-left">
           {title}

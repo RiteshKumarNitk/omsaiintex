@@ -13,17 +13,23 @@ export default React.memo(function ContactFormSection() {
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const [formData, setFormData] = useState<ContactFormData>({
-    name: '', email: '', phone: '', subject: '', message: '',
+    name: '', email: '', phone: '', subject: '', message: '', resume: null,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData(prev => ({ ...prev, resume: e.target.files![0] }));
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert('Thank you for your message! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '', resume: null });
   };
 
   useEffect(() => {
@@ -63,7 +69,7 @@ export default React.memo(function ContactFormSection() {
           <div><textarea name="message" value={formData.message} onChange={handleChange} required rows={4} className={`${inputClass} resize-none`} placeholder="would you like to say something about yourself" /></div>
           <div>
             <label className="block text-[#BAB6B6] text-base mb-2" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>Upload your Resume / CV</label>
-            <input type="file" accept=".pdf,.doc,.docx" className="w-full text-[#BAB6B6] text-base file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-white/10 file:text-white hover:file:bg-white/20 transition-all duration-300" />
+            <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} className="w-full text-[#BAB6B6] text-base file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-white/10 file:text-white hover:file:bg-white/20 transition-all duration-300" />
           </div>
           <div>
             <button type="submit" className="w-full text-base font-normal py-4 px-6 transition-all duration-300 hover:opacity-90" style={{ backgroundColor: '#FFFFFF', color: '#1D2023', fontFamily: 'var(--font-red-hat), sans-serif' }}>

@@ -8,7 +8,7 @@ export default React.memo(function FullWidthImageSection() {
         <div className="w-full overflow-hidden rounded-lg group">
           <Image
             src="/assets/images/2023/06/who-we-are-image.jpg"
-            alt="About Om Sai Intex"
+            alt="About MDS Interior — Premium Office Interiors Bangalore"
             width={1200}
             height={354}
             className="w-full object-cover transition-transform duration-700 group-hover:scale-105"

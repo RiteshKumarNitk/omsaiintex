@@ -45,7 +45,7 @@ export default React.memo(function JobOpeningsSection() {
           </p>
           <p className="text-[#A7A7A7] leading-relaxed mb-6" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
             Interested candidates may mail their cv&apos;s to{' '}
-            <a href="mailto:hr@omsaiintex.com" className="text-[#0065AC] hover:underline">hr@omsaiintex.com</a>.
+            <a href="mailto:hr@mdsinterior.com" className="text-[#0065AC] hover:underline">hr@mdsinterior.com</a>.
           </p>
           <span className="inline-block px-4 py-2 bg-[#0065AC]/20 text-[#0065AC] text-sm font-medium rounded">
             Apply for Job Here

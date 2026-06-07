@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -17,6 +17,13 @@ function Particles({ count = 1200 }) {
     return pos;
   }, [count]);
 
+  // Set initial position attribute once
+  useEffect(() => {
+    if (meshRef.current) {
+      meshRef.current.geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    }
+  }, [positions]);
+
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.02;
@@ -30,11 +37,7 @@ function Particles({ count = 1200 }) {
 
   return (
     <points ref={meshRef}>
-      <bufferGeometry
-        onUpdate={(self) => {
-          self.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        }}
-      />
+      <bufferGeometry />
       <pointsMaterial size={0.04} color="#4f8cf7" transparent opacity={0.4} sizeAttenuation blending={THREE.AdditiveBlending} />
     </points>
   );

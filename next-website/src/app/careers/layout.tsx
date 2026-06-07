@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Careers | Om Sai Intex',
+  title: 'Careers | MDS Interior Pvt. Ltd. — Join Our Team',
   description:
-    "Join our team of ambitious and creative professionals. Explore career opportunities at OSIPL and be part of India's leading interior fit-out company.",
+    "Explore career opportunities at MDS Interior — India's leading office interior fit-out company. Join 3000+ skilled professionals shaping modern workspaces across the country.",
 };
 
 export default function CareersLayout({ children }: { children: React.ReactNode }) {

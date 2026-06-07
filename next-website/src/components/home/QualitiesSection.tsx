@@ -28,13 +28,13 @@ export default function QualitiesSection() {
           className="text-[#A7A7A7] text-lg mb-2 uppercase tracking-[0.15em]"
           style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}
         >
-          Why Choose OSIPL
+          Why Choose MDS Interior
         </p>
         <h2
           className="text-4xl md:text-5xl font-bold text-white mb-16"
           style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
         >
-          Qualities of <span className="text-[#0065AC]">OSIPL Office</span>
+          Qualities of <span className="text-[#0065AC]">MDS Interior</span>
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {qualities.map((q, i) => (

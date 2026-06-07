@@ -45,7 +45,7 @@ export default React.memo(function HeroSection() {
           className="hero-tagline text-white/60 text-sm md:text-base uppercase tracking-[0.25em] mb-4 font-light"
           style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}
         >
-          Om Sai Intex — Premium Turnkey Solutions
+          MDS Interior — Premium Turnkey Solutions
         </p>
         <div ref={heroTitleRef}>
           <h1

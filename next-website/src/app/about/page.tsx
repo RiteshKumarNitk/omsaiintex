@@ -8,6 +8,7 @@ import WhoWeAreSection from '@/components/about/WhoWeAreSection';
 import TeamStatsSection from '@/components/about/TeamStatsSection';
 import AwardsSection from '@/components/about/AwardsSection';
 import HistorySection from '@/components/about/HistorySection';
+import BeforeAfterSlider from '@/components/sections/BeforeAfterSlider';
 import PageCTASection from '@/components/shared/PageCTASection';
 
 export default function AboutPage() {
@@ -46,6 +47,7 @@ export default function AboutPage() {
       <FullWidthImageSection />
       <WhoWeAreSection />
       <TeamStatsSection />
+      <BeforeAfterSlider />
       <AwardsSection />
       <HistorySection />
       <PageCTASection />

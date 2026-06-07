@@ -26,8 +26,8 @@ export default React.memo(function CareersIntroSection() {
           </div>
           <div className="border-t md:border-t-0 md:border-l border-[#FFFFFF33] pl-0 md:pl-8 pt-6 md:pt-0">
             <p className="text-[#A7A7A7] text-lg leading-relaxed" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
-              OSIPL is ready to scale faster and extend its reach across other parts of the country. To reach our goal,
-              we are actively looking for ambitious and creative professionals to fulfill our purpose.
+              MDS Interior is scaling rapidly and expanding its footprint across India. To reach our goal,
+              we are actively looking for ambitious and creative professionals to join our growing team.
             </p>
             <p className="text-[#A7A7A7] text-lg leading-relaxed mt-6" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
               Are you a professional in our field and looking for employment opportunities? Reach out with a message here.

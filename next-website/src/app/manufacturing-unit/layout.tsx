@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Manufacturing Unit | Om Sai Intex',
+  title: 'Manufacturing Unit | MDS Interior — Sleekline Modular Solutions',
   description:
-    "Om Sai Intex's 80,000 sq. ft. manufacturing unit — Sleekline Modular Solutions. CNC-enabled production facility for custom interior products.",
+    "MDS Interior's 80,000 sq. ft. CNC-enabled manufacturing facility — Sleekline Modular Solutions. State-of-the-art production for custom interior fit-out products in Bangalore.",
 };
 
 export default function ManufacturingLayout({ children }: { children: React.ReactNode }) {
