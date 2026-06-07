@@ -181,3 +181,8 @@ html.lenis body {
 .animate-slide-in-left {
   animation: slideInLeft 0.5s ease-out forwards;
 }
+
+/* Disable scroll-snap during drag */
+.no-snap {
+  scroll-snap-type: none !important;
+}
