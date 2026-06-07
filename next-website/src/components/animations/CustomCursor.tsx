@@ -85,13 +85,13 @@ export default function CustomCursor() {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-3 h-3 border border-white/70 rounded-full pointer-events-none z-[9999]"
-        style={{ transform: 'translate(-50%, -50%)' }}
+        className="fixed top-0 left-0 w-3 h-3 border border-white rounded-full pointer-events-none z-[9999]"
+        style={{ transform: 'translate(-50%, -50%)', mixBlendMode: 'difference' }}
       />
       <div
         ref={followerRef}
-        className="fixed top-0 left-0 w-10 h-10 border border-white/30 rounded-full pointer-events-none z-[9998] flex items-center justify-center"
-        style={{ transform: 'translate(-50%, -50%)' }}
+        className="fixed top-0 left-0 w-10 h-10 border border-white/50 rounded-full pointer-events-none z-[9998] flex items-center justify-center"
+        style={{ transform: 'translate(-50%, -50%)', mixBlendMode: 'difference' }}
       >
         <span ref={labelRef} className="hidden text-[8px] font-bold uppercase tracking-[0.2em] text-white select-none">View</span>
       </div>

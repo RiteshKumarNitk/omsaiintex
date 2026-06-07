@@ -1,86 +1,105 @@
-"use client";
+'use client';
 
-import React, { useRef, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Stars } from '@react-three/drei';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React, { useRef } from 'react';
+import Link from 'next/link';
+import HeroThreeScene from '@/components/three/HeroThreeScene';
+import { useHeroAnimation } from '@/hooks/animations/useHeroAnimation';
+import { useSlideShow } from '@/hooks/animations/useSlideShow';
+import { slides } from '@/data/home/slides';
 
-gsap.registerPlugin(ScrollTrigger);
+export default React.memo(function HeroSection() {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const heroTitleRef = useRef<HTMLHeadingElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroButtonsRef = useRef<HTMLDivElement>(null);
 
-function MovingStars() {
-  const starsRef = useRef<any>(null);
-  useFrame(() => {
-    if (starsRef.current) {
-      starsRef.current.rotation.x += 0.0005;
-      starsRef.current.rotation.y += 0.0005;
-    }
-  });
-  return <Stars ref={starsRef} radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />;
-}
+  const { currentIndex: slideIdx, goToSlide } = useSlideShow({ totalSlides: slides.length });
 
-export default function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const subRef = useRef<HTMLParagraphElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Entrance Animation
-      gsap.fromTo(headingRef.current, 
-        { y: 100, opacity: 0 }, 
-        { y: 0, opacity: 1, duration: 1.5, ease: "power4.out", delay: 0.2 }
-      );
-      
-      gsap.fromTo(subRef.current,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.6 }
-      );
-
-      // Scroll Parallax Animation
-      gsap.to(headingRef.current, {
-        y: -150,
-        opacity: 0,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        }
-      });
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+  useHeroAnimation({ overlayRef, heroContentRef, heroTitleRef, heroButtonsRef, heroRef });
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Three.js Background */}
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 1] }}>
-          <MovingStars />
-        </Canvas>
-        {/* Gradient Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-10" />
+    <section ref={heroRef} className="relative w-full h-screen overflow-hidden bg-black">
+      {/* Slides */}
+      {slides.map((s, i) => (
+        <div
+          key={i}
+          className={`hero-slide absolute inset-0 z-[1] transition-all duration-1000 ease-in-out ${
+            i === slideIdx ? 'opacity-100 scale-100' : 'opacity-0 scale-110'
+          }`}
+          style={{
+            backgroundImage: `url(${s.image})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      ))}
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60 z-10" />
+      {/* Curtain overlay for entrance */}
+      <div ref={overlayRef} className="absolute inset-0 bg-black z-20 origin-top" />
+
+      {/* Hero content */}
+      <div ref={heroContentRef} className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4">
+        <p
+          className="hero-tagline text-white/60 text-sm md:text-base uppercase tracking-[0.25em] mb-4 font-light"
+          style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}
+        >
+          Om Sai Intex — Premium Turnkey Solutions
+        </p>
+        <div ref={heroTitleRef}>
+          <h1
+            className="text-[3rem] md:text-[6.25rem] font-bold leading-[1.1] tracking-tight"
+            style={{ fontFamily: 'var(--font-poppins), sans-serif', perspective: '1200px' }}
+          >
+            <span className="text-outline">{slides[slideIdx].title}</span><br />
+            <span className="text-[#0065AC]">{slides[slideIdx].subtitle}</span>
+          </h1>
+        </div>
+        <p
+          className="hero-subtitle mt-6 text-white/70 text-lg md:text-xl max-w-xl font-light"
+          style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}
+        >
+          Creating spatially exciting workspaces tuned to its people
+        </p>
+        <div ref={heroButtonsRef} className="mt-10 flex gap-4">
+          <Link
+            href="/projects"
+            className="inline-flex items-center px-8 py-3.5 bg-[#0065AC] text-white font-medium rounded hover:bg-[#00508A] transition-all duration-300 text-base"
+            style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}
+          >
+            Explore Our Work
+            <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center px-8 py-3.5 border border-white/20 text-white font-medium rounded hover:bg-white/10 transition-all duration-300 text-base"
+            style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}
+          >
+            Get in Touch
+          </Link>
+        </div>
       </div>
 
-      <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
-        <p ref={subRef} className="text-gray-400 uppercase tracking-[0.3em] mb-6 text-sm font-semibold">
-          Transforming Creativity
-        </p>
-        <h1 ref={headingRef} className="text-7xl md:text-9xl font-extrabold text-white tracking-tighter leading-tight">
-          Into <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-            Reality.
-          </span>
-        </h1>
+      {/* Three.js background */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <HeroThreeScene />
       </div>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center animate-bounce">
-        <span className="text-xs text-gray-400 uppercase tracking-widest mb-2">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-gray-400 to-transparent"></div>
+
+      {/* Slide indicators */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex gap-2.5">
+        {slides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goToSlide(i)}
+            className={`transition-all duration-500 rounded-full ${
+              i === slideIdx ? 'w-10 h-1.5 bg-white' : 'w-1.5 h-1.5 bg-white/40 hover:bg-white/60'
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
-}
+});

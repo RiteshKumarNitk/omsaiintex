@@ -1,94 +1,131 @@
-"use client";
+'use client';
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { projectItems } from '@/data/projects/items';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const categories = ["All", "Commercial", "Industrial", "IT & Corporate", "Interior Fit-out"];
+function ProjectCard({ project, index }: { project: typeof projectItems[0]; index: number }) {
+  return (
+    <Link href={`/projects/${project.slug}`} className="block">
+      <div className="project-card group relative overflow-hidden rounded-2xl bg-[#0a0f11] border border-white/5 hover:border-[#0065AC]/30 transition-colors duration-500">
+        {/* Image Container */}
+        <div className="aspect-[4/3] relative overflow-hidden">
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-const projects = [
-  { title: "Corporate Office Interior", category: "Interior Fit-out", location: "Bangalore", image: "project-1.jpg" },
-  { title: "IT Park Development", category: "IT & Corporate", location: "Bangalore", image: "project-2.jpg" },
-  { title: "Industrial Warehouse", category: "Industrial", location: "Bangalore", image: "project-3.jpg" },
-  { title: "Commercial Complex", category: "Commercial", location: "Bangalore", image: "project-4.jpg" },
-  { title: "Tech Campus", category: "IT & Corporate", location: "Bangalore", image: "project-5.jpg" },
-  { title: "Luxury Retail Space", category: "Commercial", location: "Bangalore", image: "project-6.jpg" },
-  { title: "Factory Building", category: "Industrial", location: "Bangalore", image: "project-7.jpg" },
-  { title: "Corporate HQ", category: "Interior Fit-out", location: "Bangalore", image: "project-8.jpg" },
-];
+          {/* Category Badge */}
+          <div className="absolute top-4 left-4 z-10">
+            <span className="px-3 py-1.5 bg-black/60 backdrop-blur-sm text-white/80 text-xs font-medium rounded-full border border-white/10 uppercase tracking-wider">
+              {project.category}
+            </span>
+          </div>
 
-export default function ProjectsGridSection() {
+          {/* Project Number */}
+          <div className="absolute top-4 right-4 z-10">
+            <span className="text-white/30 text-sm font-mono">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+          </div>
+
+          {/* Hover Content */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+            <p className="text-white/90 text-sm leading-relaxed mb-3" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
+              {project.description}
+            </p>
+            <div className="flex items-center gap-4 text-white/50 text-xs">
+              {project.area && <span>{project.area}</span>}
+              {project.year && <span>• {project.year}</span>}
+            </div>
+          </div>
+        </div>
+
+        {/* Card Content */}
+        <div className="p-5 relative">
+          <div className="flex items-center justify-between">
+            <h3
+              className="text-xl font-bold text-white uppercase tracking-wide group-hover:text-[#0065AC] transition-colors duration-300"
+              style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}
+            >
+              {project.name}
+            </h3>
+            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white/10 group-hover:border-[#0065AC]/50 group-hover:bg-[#0065AC]/10 transition-all duration-300">
+              <svg
+                className="w-4 h-4 text-white/50 group-hover:text-[#0065AC] transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-5 right-5 h-px bg-gradient-to-r from-transparent via-[#0065AC]/0 to-transparent group-hover:via-[#0065AC]/30 transition-all duration-500" />
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+export default React.memo(function ProjectsGridSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeFilter, setActiveFilter] = useState("All");
-  const filteredProjects = activeFilter === "All" ? projects : projects.filter(p => p.category === activeFilter);
+  const headingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(".project-card", 
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out",
-          scrollTrigger: { trigger: sectionRef.current, start: "top 80%" }
-        }
-      );
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current,
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: headingRef.current, start: 'top 85%' } }
+        );
+      }
+
+      const cards = sectionRef.current?.querySelectorAll('.project-card');
+      if (cards && cards.length > 0) {
+        gsap.fromTo(cards,
+          { y: 60, opacity: 0, scale: 0.95 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: { amount: 0.6, from: 'start' }, ease: 'power3.out',
+            scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } }
+        );
+      }
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    gsap.fromTo(".project-card", 
-      { y: 20, opacity: 0, scale: 0.95 },
-      { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.05, ease: "power2.out" }
-    );
-  }, [activeFilter]);
-
   return (
-    <section ref={sectionRef} className="py-24 bg-[#121B1D]">
+    <section ref={sectionRef} className="py-20 md:py-32 bg-[#121B1D]">
       <div className="container mx-auto px-6 md:px-12">
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-12 justify-center">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveFilter(cat)}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeFilter === cat
-                  ? "bg-blue-500 text-white shadow-lg shadow-blue-500/25"
-                  : "bg-gray-900 text-gray-400 hover:text-white hover:bg-gray-800 border border-gray-800"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+        <div ref={headingRef} className="text-center mb-16 md:mb-20">
+          <span className="text-[#0065AC] text-sm font-medium uppercase tracking-[0.2em] mb-4 block">
+            Portfolio
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" style={{ fontFamily: 'var(--font-montserrat), sans-serif' }}>
+            Featured <span className="text-[#0065AC]">Projects</span>
+          </h2>
+          <p className="text-[#A7A7A7] text-lg mt-4 max-w-2xl mx-auto" style={{ fontFamily: 'var(--font-red-hat), sans-serif' }}>
+            Explore our portfolio of transformative workspaces designed for leading brands
+          </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProjects.map((project, idx) => (
-            <div
-              key={`${project.title}-${idx}`}
-              className="project-card group relative overflow-hidden rounded-xl bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 hover:border-blue-500/30 transition-all duration-500 cursor-pointer"
-            >
-              <div className="aspect-[4/3] bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center">
-                <div className="text-gray-600 text-center p-6">
-                  <svg className="w-12 h-12 mx-auto mb-2 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span className="text-xs text-gray-700">{project.image}</span>
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end p-6">
-                <div>
-                  <p className="text-xs text-blue-400 uppercase tracking-wider mb-1">{project.category}</p>
-                  <h3 className="text-lg font-semibold text-white">{project.title}</h3>
-                  <p className="text-gray-400 text-sm">{project.location}</p>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
+          {projectItems.map((project, idx) => (
+            <div key={idx}>
+              <ProjectCard project={project} index={idx} />
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+});
